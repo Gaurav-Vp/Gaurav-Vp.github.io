@@ -1,0 +1,120 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body,
+html {
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+    /* box-sizing: content-box; */
+}
+
+select {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg-img {
+    background-image: url("https://i.postimg.cc/8CzhBb9y/bg-sih.jpg");
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 150%;
+    /* position: relative; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Firebase auth */
+.forms-out {
+    margin: 0 auto;
+    font-family: "Fira Sans", sans-serif;
+    padding: 15px 0;
+}
+
+.forms-in {
+    width: 93%;
+    margin: 0 auto;
+    color: white;
+    padding: 15px 0;
+}
+
+.forms-in div {
+    padding: 30px 20px;
+    max-width: 450px;
+    margin: 0 auto;
+    background: transparent;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.forms-in h3 {
+    text-align: center;
+}
+
+.forms-in input {
+    border: none;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.forms-in button {
+    border: none;
+    padding: 7px 20px;
+    background: #e8f8ff;
+    color: #168ab8;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.forms-in button:hover {
+    opacity: 0.7;
+}
+
+.hide {
+    display: none !important;
+}
+
+#forgot-password {
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#forgot-password:hover {
+    opacity: 0.7;
+}
+
+input {
+    background: transparent;
+    border: 2px solid #e8f8ff !important;
+    /* Adjust border color and width here */
+}
+
+.input-active {
+    background-color: #f9f9f9;
+    /* Define the background color you want when text is entered */
+}
+
+.dropdown-active {
+    color: #00FFFF;
+}
