@@ -263,7 +263,7 @@ const authenticate = (email, password) => {
             console.error("Login error:", errorCode, errorMessage);
             alert(errorMessage);
             if (errorMessage === "Firebase: Error (auth/invalid-login-credentials)."){
-                location.href = "./registration.html";
+                window.location.href = "./registration.html";
             }
         });
 };
