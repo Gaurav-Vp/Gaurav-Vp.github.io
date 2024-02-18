@@ -3,7 +3,7 @@
 
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="./css/styles.css">
     <link type="text/css" rel="stylesheet" href="./css/soilMoisture.css">
     <title>KriEC Tech</title>
@@ -17,16 +17,16 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">KriEC Tech</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
-                        aria-label="Toggle navigation">
+                            data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                            aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-                        aria-labelledby="offcanvasDarkNavbarLabel">
+                         aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">KriEC Tech</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
+                                    aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -34,13 +34,17 @@
                                     <a class="nav-link" aria-current="page" href="./index.html">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
+                                    <a class="nav-link active dropdown-toggle" href="#" role="button"
+                                       data-bs-toggle="dropdown" aria-expanded="false">
                                         Services
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
-                                        <li><a class="dropdown-item dropdown-active soil-moisture-call">Soil
-                                                moisture</a></li>
+                                        <li>
+                                            <a class="dropdown-item dropdown-active soil-moisture-call">
+                                                Soil
+                                                moisture
+                                            </a>
+                                        </li>
                                         <li><a class="dropdown-item climate-condition-call">Climate condition</a></li>
                                         <li><a class="dropdown-item water-use-call">Water use</a></li>
                                         <li><a class="dropdown-item crop-stge-call">Crop stage</a></li>
@@ -49,7 +53,8 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item edit-device-details-call">Edit Device Details</a>
+                                        <li>
+                                            <a class="dropdown-item edit-device-details-call">Edit Device Details</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -78,31 +83,28 @@
 
 
     <!-- Soil Moisture -->
-    <div class="bg-img">
-        <div id="soil-moisture-page" class="soilMoisture">
-            <div class="container">
-                <div class="data-head">
-                    <h3>DHT Sensor Realtime Readings</h3>
-                </div>
+    <div class="container soilMoisture__container">
+        <div class="data-head">
+            <h3>DHT Sensor Realtime Readings</h3>
+        </div>
 
-                <div class="data-container">
-                    <div class="data-item">
-                        <h2>Temperature</h2>
-                        <p class="value" id="tempValue">22 &#8451;</p>
-                    </div>
-                    <div class="data-item">
-                        <h2>Soil Humidity</h2>
-                        <p class="value" id="humiValue">10%</p>
-                    </div>
-                </div>
-
-
-                <canvas id="realTimeChart" width="1000" height="200"></canvas>
-
+        <div class="data-container">
+            <div class="data-item">
+                <h2>Temperature</h2>
+                <p class="value" id="tempValue">22 &#8451;</p>
+            </div>
+            <div class="data-item">
+                <h2>Soil Humidity</h2>
+                <p class="value" id="humiValue">10%</p>
             </div>
         </div>
-        <!-- Soil Moisture --end -->
 
+
+        <canvas id="realTimeChart" width="1000" height="200"></canvas>
+
+    </div>
+    </div>
+    <!-- Soil Moisture --end -->
     </div>
 
     <!-- firebaseAuth -->
@@ -110,15 +112,14 @@
     <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-auth-compat.js"></script>
     <!-- firebaseAuth ends here -->
-    
     <!-- Database and chart.js -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Database and chart.js ends here -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
     <script src="./js/firebaseAuth.js"></script>
 </body>
 

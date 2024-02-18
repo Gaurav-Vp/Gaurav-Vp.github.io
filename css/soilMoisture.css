@@ -1,54 +1,56 @@
-    /* Soil Moisture Page Styles */
-    .data-head {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-    }
+/* Soil Moisture Page Styles */
+.data-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 1.7rem;
+}
 
-    .data-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        margin-top: 20px;
-    }
+.data-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
 
-    .data-item {
-        flex: 0 0 50%;
-        margin: 0 10px;
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-    }
+.data-item {
+    flex: 0 0 50%;
+    margin: 0 10px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
 
-    .soilMoisture {
-        padding: 50px 0;
-        text-align: center;
-        color: #fff;
-    }
+.soilMoisture__container {
+    padding: 50px 0;
+    text-align: center;
+    color: #fff;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
 
-    .data-head h3 {
-        font-size: 24px;
-        font-weight: bold;
-    }
+.data-head h3 {
+    font-size: 24px;
+    font-weight: bold;
+}
 
-    .data-item h2 {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
+.data-item h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-    .value {
-        font-size: 24px;
-        font-weight: bold;
-    }
+.value {
+    font-size: 24px;
+    font-weight: bold;
+}
 
-    #realTimeChart {
-        width: 100%;
-        max-width: 1000px;
-        height: 200px;
-        margin: 0 auto;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-    }
+#realTimeChart {
+    width: 100%;
+    max-width: 1000px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}

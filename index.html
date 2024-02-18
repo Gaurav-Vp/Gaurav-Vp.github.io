@@ -3,7 +3,7 @@
 
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="./css/styles.css">
     <title>KriEC Tech</title>
 </head>
@@ -16,16 +16,16 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">KriEC Tech</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
-                        aria-label="Toggle navigation">
+                            data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar"
+                            aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-                        aria-labelledby="offcanvasDarkNavbarLabel">
+                         aria-labelledby="offcanvasDarkNavbarLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">KriEC Tech</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
+                                    aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -34,8 +34,8 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                    Services
+                                       aria-expanded="false">
+                                        Services
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-dark">
                                         <li><a class="dropdown-item soil-moisture-call">Soil moisture</a></li>
@@ -47,7 +47,9 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item edit-device-details-call">Edit Device Details</a></li>
+                                        <li>
+                                            <a class="dropdown-item edit-device-details-call">Edit Device Details</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
@@ -74,43 +76,35 @@
     </header>
 
     <!-- Home Page -->
-    <div id="homepage" class="homepage">
-        <div class="main">
-            <img src="./img/bg-image.jpeg" class="bg-img" alt="">
-            <div class="body">
-                <div class="container">
-                    <div class="card">
-                        <img src="./img/soil-moisture.jpeg" alt="">
-                        <button class="btn soil-moisture-call">Soil moisture</button>
-                    </div>
-                    <div class="card">
-                        <img src="./img/climate-condition.jpeg" alt="">
-                        <button class="btn climate-condition-call">Climate condition</button>
-                    </div>
-                    <div class="card">
-                        <img src="./img/water-use.jpeg" alt="">
-                        <button class="btn water-use-call">Water use</button>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="card">
-                        <img src="./img/crop-stage.jpeg" alt="">
-                        <button class="btn crop-stge-call">Crop stage</button>
-                    </div>
-                    <div class="card">
-                        <img src="./img/time-period.jpeg" alt="">
-                        <button class="btn time-period-call">Time period</button>
-                    </div>
-                    <div class="card">
-                        <img src="./img/crop-type.jpeg" alt="">
-                        <button class="btn crop-type-call">Crop type</button>
-                    </div>
-                </div>
-            </div>
+
+    <div class="container homepage__container">
+        <div class="card">
+            <img src="./img/soil-moisture.jpeg" alt="">
+            <button class="btn soil-moisture-call">Soil moisture</button>
+        </div>
+        <div class="card">
+            <img src="./img/climate-condition.jpeg" alt="">
+            <button class="btn climate-condition-call">Climate condition</button>
+        </div>
+        <div class="card">
+            <img src="./img/water-use.jpeg" alt="">
+            <button class="btn water-use-call">Water use</button>
+        </div>
+        <div class="card">
+            <img src="./img/crop-stage.jpeg" alt="">
+            <button class="btn crop-stge-call">Crop stage</button>
+        </div>
+        <div class="card">
+            <img src="./img/time-period.jpeg" alt="">
+            <button class="btn time-period-call">Time period</button>
+        </div>
+        <div class="card">
+            <img src="./img/crop-type.jpeg" alt="">
+            <button class="btn crop-type-call">Crop type</button>
         </div>
     </div>
-    <!-- Home Page --end -->
 
+    <!-- Home Page --end -->
     </div>
 
     <!-- firebaseAuth -->
@@ -120,8 +114,8 @@
     <!-- firebaseAuth ends here -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
     <script src="./js/firebaseAuth.js"></script>
 </body>
 

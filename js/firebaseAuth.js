@@ -77,17 +77,6 @@ if (Page === "deviceRegistration") {
         }
     });
 }
-if (Page === "editDevice") {
-    document.querySelector("#edit-profile").addEventListener("click", () => {
-        editDeviceDetails();
-    });
-    document.addEventListener("keyup", (e) => {
-        if (event.keyCode === 13) {
-            e.preventDefault();
-            editDeviceDetails();
-        }
-    });
-}
 if (Page === "soilMoisture") {
     // Soil_moisture_page
 
@@ -142,7 +131,14 @@ if (Page === "soilMoisture") {
     });
 
 }
+if (Page === "timePeriod") {
+    // Call the function to display data and create the chart when the page loads
+    window.onload = function () {
+        displayDataAndCreateChart();
+    };
+}
 // ========================== --end ==========================
+
 
 
 
@@ -179,8 +175,6 @@ for (let i = 0; i < homeCall.length; i++) {
     });
 
 }
-
-
 
 
 // ========================== Navbar EventListners --end ==========================
@@ -254,6 +248,7 @@ const authenticate = (email, password) => {
     auth.signInWithEmailAndPassword(email, password)
         .then(function (userCredential) {
             console.log("Login successful:", userCredential);
+            fetch__details();
             loginStatus = true;
             window.location.href = "./index.html";
         })
@@ -262,8 +257,8 @@ const authenticate = (email, password) => {
             var errorMessage = error.message;
             console.error("Login error:", errorCode, errorMessage);
             alert(errorMessage);
-            if (errorMessage === "Firebase: Error (auth/invalid-login-credentials)."){
-                window.location.href = "./registration.html";
+            if (errorMessage === "Firebase: Error (auth/invalid-login-credentials).") {
+                location.href = "./registration.html";
             }
         });
 };
@@ -287,36 +282,12 @@ auth.onAuthStateChanged((firebaseUser) => {
     if (firebaseUser) {
         console.log("User is signed in:", firebaseUser); // logging if user is authenticated
         loginStatus = true;  // setting login status to true 
-
-        // populating edit device details forms with past details
-        if (Page === "editDevice") {
-            populateEditProfileForm();
-        }
-
-        // fetching and filling weather details
-        if (Page === "climateCondition") {
-            getAreaValue(function (areaValue) {
-                searchByCityName(areaValue);
-                // Use the areaValue in your other function here
-            });
-        }
-        if (Page === "cropType") {
-            getCropTypeValue(function (cropType) {
-                if (cropType.value.toLowerCase() === "wheat") {
-                    document.querySelector(".wheat").classList.remove("hide");
-                } else if (cropType.valueowerCase() === "maize") {
-                    document.querySelector(".maize").classList.remove("hide");
-                } else {
-                    document.querySelector(".wheat").classList.add("hide");
-                    document.querySelector(".maize").classList.add("hide");
-                }
-            });
-        }
+        fetch__details();
 
         // allowing to go through different pages only if user is authenticated
         // Loop through the buttons and add event listeners
         let buttonClasses = {
-            ".edit-device-details-call": "editDevice.html",
+            ".edit-device-details-call": "deviceRegistration.html",
             ".soil-moisture-call": "soilMoisture.html",
             ".climate-condition-call": "climateCondition.html",
             ".water-use-call": "waterUse.html",
@@ -340,24 +311,25 @@ auth.onAuthStateChanged((firebaseUser) => {
 
 
         // setting every button href to login page if user is not authenticated
-        let buttonClasses = {
-            ".edit-device-details-call": "editDevice.html",
-            ".soil-moisture-call": "soilMoisture.html",
-            ".climate-condition-call": "climateCondition.html",
-            ".water-use-call": "waterUse.html",
-            ".crop-stge-call": "cropStage.html",
-            ".time-period-call": "timePeriod.html",
-            ".crop-type-call": "cropType.html",
-            ".about-us-call": "aboutUs.html",
-        };
-        Object.entries(buttonClasses).forEach(([buttonClass, page]) => {
+        let buttonClasses = [
+            ".edit-device-details-call",
+            ".soil-moisture-call",
+            ".climate-condition-call",
+            ".water-use-call",
+            ".crop-stge-call",
+            ".time-period-call",
+            ".crop-type-call",
+            ".about-us-call"
+        ];
+        buttonClasses.forEach((buttonClass) => {
             let buttons = document.querySelectorAll(buttonClass);
             buttons.forEach((button) => {
                 button.addEventListener("click", () => {
                     alert("Please login to continue.");
                     window.location.href = "./login.html";
+
                 });
-            });
+            })
         });
     }
     toggleLoginLogout();
@@ -367,6 +339,7 @@ auth.onAuthStateChanged((firebaseUser) => {
 
 
 //  ========================== Firebase inbuilt functions --end ==========================
+
 
 
 
@@ -455,10 +428,84 @@ function checkInput() {
 
 
 
+// !!IMPORTANT  Fetching details from firebase server and fullfilling requirenments of all pages  !!IMPORTANT
+function fetch__details() {
+    const user = firebase.auth().currentUser;
+    console.log("inside1");
 
+    if (user) {
+        // User is signed in, get a reference to the user's document in Firestore
+        const userDocRef = db.collection("users").doc(user.uid);
 
+        // Get the user's document
+        userDocRef.get().then((doc) => {
+            if (doc.exists) {
+                // The document exists, you can read its data
+                const data = doc.data();
 
+                var deviceID = data.deviceID || '';
+                var area = data.area || '';
+                var cropState = data.cropState || '';
+                var cropType = data.cropType || '';
+                var username = data.username || '';
 
+                // ==== Edit-profile-page Display existing values ====
+                if (Page === "deviceRegistration") {
+                    // Display the data in the form -- Populate Form
+                    document.querySelector("#device-id").value = deviceID;
+                    document.querySelector("#area").value = area;
+                    document.querySelector("#crop-state").value = cropState;
+                    document.querySelector("#crop-type").value = cropType;
+                    document.querySelector("#username").value = username;
+                    checkInput();
+                }
+                // ==== Edit-profile-page Display existing values --end ====
+
+                // ==== climate_condition_page ====
+                if (Page === "climateCondition") {
+                    const city = ["Jodhpur", "Rajsamand", "Udaipur"];
+                    let areaValue;
+                    if (area === "Area A") {
+                        areaValue = city[0];
+                    } else if (area === "Area B") {
+                        areaValue = city[1];
+                    } else if (area === "Area C") {
+                        areaValue = city[2];
+                    } else {
+                        console.log("Out of Bound");
+                    }
+                    searchByCityName(areaValue);
+                }
+                // ==== climate_condition_page --end ====
+
+                // ==== Crop Type page ====
+                if (Page === "cropType") {
+                    console.log("inside 2");
+                    console.log(cropType);
+                    if (cropType.toLowerCase() === "wheat") {
+                        document.querySelector(".wheat").classList.remove("hide");
+                    } else if (cropType.toLowerCase() === "maize") {
+                        document.querySelector(".maize").classList.remove("hide");
+                    } else {
+                        document.querySelector(".wheat").classList.add("hide");
+                        document.querySelector(".maize").classList.add("hide");
+                    }
+                }
+                // ==== Crop Type page --end ====
+
+            } else {
+                // The document does not exist
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    } else {
+        // No user is signed in.
+        console.log("User not authenticated. Please sign in.");
+    }
+}
+// !!IMPORTANT  --end  !!IMPORTANT
 
 
 // ========================== Devicde rehistration form ==========================
@@ -488,7 +535,7 @@ function deviceRegistration() {
             cropState: cropState,
             cropType: cropType,
             username: username,
-        }).then(() => {
+        }, { merge: true }).then(() => {
             alert("Device registered successfully!");
             location.href = "./index.html";
         }).catch((error) => {
@@ -503,158 +550,64 @@ function deviceRegistration() {
 }
 // ========================== Devicde rehistration form --end ==========================
 
-// ========================== Edit Device form ==========================
-function editDeviceDetails() {
+
+
+// ========================== Time_Period_page ==========================
+// Function to display data from Firestore and create a chart
+async function displayDataAndCreateChart() {
+    const dataContainer = document.getElementById('dataContainer');
+    const ctx = document.getElementById('soil-moisture-data-chart').getContext('2d');
+    const data = []; // Array to store data for the chart
+    const labels = []; // Array to store labels for the chart
+
     try {
-        const deviceID = document.querySelector("#device-id-edit").value;
-        const area = document.querySelector("#area-edit").value;
-        const cropState = document.querySelector("#crop-state-edit").value;
-        const cropType = document.querySelector("#crop-type-edit").value;
-        const username = document.querySelector("#username-edit").value;
+        const querySnapshot = await db.collection("EspData").get();
 
-        const user = firebase.auth().currentUser;
+        querySnapshot.forEach((doc) => {
+            const docData = doc.data();
+            // Assuming your data contains values and timestamps
+            data.push(docData.Humidity); // Replace 'value' with your actual field name
+            labels.push(docData.Temperature); // Replace 'timestamp' with your actual field name
 
-        if (!user) {
-            throw new Error("User not authenticated. Please sign in.");
-        }
-
-        // Get a reference to the user's document in Firestore
-        const userDocRef = db.collection("users").doc(user.uid);
-
-        // Update the user's document with the new profile data
-        userDocRef.set({
-            deviceID: deviceID,
-            area: area,
-            cropState: cropState,
-            cropType: cropType,
-            username: username,
-        }, { merge: true }).then(() => {
-            alert("Profile updated successfully!");
-            location.href = "./index.html";
-        }).catch((error) => {
-            console.error("Error updating document: ", error);
-            alert("An error occurred while updating the profile.");
+            // Display Firestore data in the container (similar to your previous code)
+            // ...
         });
-    }
-    catch (error) {
-        console.error("Error updating profile: ", error);
-        alert("An error occurred while updating the profile.");
-    }
-}
-// ========================== Edit Device form ==========================
 
-// ========================== Edit-profile-page Display existing values ==========================
-function populateEditProfileForm() {
-    const user = firebase.auth().currentUser;
-
-    if (user) {
-        // User is signed in, get a reference to the user's document in Firestore
-        const userDocRef = db.collection("users").doc(user.uid);
-
-        // Get the user's document
-        userDocRef.get().then((doc) => {
-            if (doc.exists) {
-                // The document exists, you can read its data
-                const data = doc.data();
-
-                // Display the data in the form
-                document.querySelector("#device-id-edit").value = data.deviceID || '';
-                document.querySelector("#area-edit").value = data.area || '';
-                document.querySelector("#crop-state-edit").value = data.cropState || '';
-                document.querySelector("#crop-type-edit").value = data.cropType || '';
-                document.querySelector("#username-edit").value = data.username || '';
-                checkInput();
-            } else {
-                // The document does not exist
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
-    } else {
-        // No user is signed in.
-        console.log("User not authenticated. Please sign in.");
-    }
-}
-// ========================== Edit-profile-page Display existing values --end ==========================
-
-// ========================== climate_condition_page ==========================
-
-// get the city stored in database firestore
-function getAreaValue(callback) {
-    const user = firebase.auth().currentUser;
-
-    if (user) {
-        // User is signed in, get a reference to the user's document in Firestore
-        const userDocRef = db.collection("users").doc(user.uid);
-
-        // Get the user's document
-        userDocRef
-            .get()
-            .then((doc) => {
-                if (doc.exists) {
-                    // The document exists, you can read its data
-                    const data = doc.data();
-                    var area = data.area;
-                    const city = ["Jodhpur", "Rajsamand", "Udaipur"];
-
-                    // Display the data in the form
-                    let areaValue;
-                    if (area === "Area A") {
-                        areaValue = city[0];
-                    } else if (area === "Area B") {
-                        areaValue = city[1];
-                    } else if (area === "Area C") {
-                        areaValue = city[2];
-                    } else {
-                        console.log("Out of Bound");
+        // Create the chart using Chart.js
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Data from Firestore',
+                    data: data,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
                     }
-
-                    callback(areaValue);
-                } else {
-                    // The document does not exist
-                    console.log("No such document!");
-                    alert("Please complete your profile first!");
                 }
-            })
-            .catch((error) => {
-                console.log("Error getting document:", error);
-            });
-    } else {
-        // No user is signed in.
-        console.log("User not authenticated. Please sign in.");
+            }
+        });
+
+    } catch (error) {
+        console.error("Error getting documents: ", error);
     }
 }
 
-// ========================== climate_condition_page --end ==========================
-function getCropTypeValue(callback) {
-    const user = firebase.auth().currentUser;
+const soilDataRangeInput = document.getElementById('soilDataRange');
+// const calendar = new Pikaday({ field: soilDataRangeInput });
+// ========================== Time_Period_page --end ==========================
 
-    if (user) {
-        // User is signed in, get a reference to the user's document in Firestore
-        const userDocRef = db.collection("users").doc(user.uid);
 
-        // Get the user's document
-        userDocRef
-            .get()
-            .then((doc) => {
-                if (doc.exists) {
-                    // The document exists, you can read its data
-                    const data = doc.data();
-                    var cropState = data.cropType;
-                    console.log("crp :", cropType);
-                    callback(cropType);
-                } else {
-                    // The document does not exist
-                    console.log("No such document!");
-                    alert("Please complete your profile first!");
-                }
-            })
-            .catch((error) => {
-                console.log("Error getting document:", error);
-            });
-    } else {
-        // No user is signed in.
-        console.log("User not authenticated. Please sign in.");
-    }
-}
+
+
+
+
+
+
